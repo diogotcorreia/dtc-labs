@@ -1,0 +1,20 @@
+{
+  "name": "dtc-labs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@git.diogotc.com:dtc/dtc-labs.git",
+  "author": "Diogo Correia <me@diogotc.com>",
+  "license": "NONE",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
