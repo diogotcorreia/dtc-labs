@@ -28,3 +28,9 @@ build/Release
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
 
+dist
+
+# Sensitive files
+.env
+credentials.json
+token.json
