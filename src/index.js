@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './routes';
+import 'regenerator-runtime/runtime';
 
 const app = express();
 

@@ -15,7 +15,7 @@ class PayPalService {
       });
 
       const options = {
-        url: 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr',
+        url: 'https://ipnpb.paypal.com/cgi-bin/webscr',
         method: 'POST',
         headers: {
           'Content-Length': postreq.length,
