@@ -13,8 +13,21 @@ class IPNController {
 
     const body = req.body || {};
 
+    // Log
+    console.log(
+      JSON.stringify(
+        {
+          date: Date.now(),
+          method: req.params.method,
+          body,
+        },
+        null,
+        2
+      )
+    );
+
     // Validate IPN message with PayPal
-    try {
+    /*try {
       const isValidated = await PayPalService.validate(body);
       if (!isValidated) {
         console.error('Error validating IPN message.');
@@ -25,7 +38,7 @@ class IPNController {
       if (TRITON_REGEX.test(body.custom)) sheetsController.handleTritonPurchase(body);
     } catch (e) {
       console.error(e);
-    }
+    }*/
   }
 }
 
