@@ -15,7 +15,7 @@ class IPNController {
     this.databaseController = new DatabaseController();
   }
 
-  async handleWebhook(req, res) {
+  handleWebhook = async (req, res) => {
     // Send 200 status back to PayPal
     try {
       const valid = await validateWebhook(JSON.stringify(req.body));
@@ -70,7 +70,7 @@ class IPNController {
       console.error('Error while handling PayPal webhook', e);
       res.sendStatus(500);
     }
-  }
+  };
 }
 
 export default IPNController;
