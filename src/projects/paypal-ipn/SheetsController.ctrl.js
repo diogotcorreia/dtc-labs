@@ -68,19 +68,18 @@ class SheetsController {
     });
   }
 
-  handleTritonPurchase(data) {
+  handleTritonPurchase({ date, spigotUser, total, fee, currency, transactionId, marketplace }) {
     const sheets = google.sheets({ version: 'v4', auth: this.auth });
     const spreadsheetId = process.env.PAYPAL_SPREADSHEET_ID;
     sheets.spreadsheets.values.get(
       {
         spreadsheetId,
-        range: 'Triton Purchases!G7:G',
+        range: 'Triton Purchases!H7:H',
       },
       (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
         const rows = res.data.values;
-        if (!rows.every((v) => v[0] !== data.txn_id)) return;
-        const date = new Date(data.payment_date);
+        if (!rows.every((v) => v[0] !== transactionId)) return;
         sheets.spreadsheets.values.append(
           {
             spreadsheetId,
@@ -90,12 +89,15 @@ class SheetsController {
               values: [
                 [
                   `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
-                  `${data.first_name} ${data.last_name}`,
-                  data.item_name.split('(')[1].slice(0, -1),
-                  data.mc_gross,
-                  data.mc_fee,
+                  ``,
+                  spigotUser,
+                  total,
+                  fee,
                   '',
-                  data.txn_id,
+                  '',
+                  transactionId,
+                  marketplace,
+                  currency,
                 ],
               ],
             },

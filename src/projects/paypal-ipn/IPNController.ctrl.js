@@ -1,44 +1,57 @@
 import SheetsController from './SheetsController.ctrl';
-import PayPalService from './paypal.service';
-
-const TRITON_REGEX = /resource_purchase\|\d+\|[\w\d]+\|30331/;
+import { validate as validateWebhook } from './paypal.service';
+import { getUserById } from './spigot.service';
 
 const sheetsController = new SheetsController();
 
 class IPNController {
-  static async index(req, res) {
+  async handleWebhook(req, res) {
     // Send 200 status back to PayPal
-    res.status(200).send('OK');
-    res.end();
-
-    const body = req.body || {};
-
-    // Log
-    console.log(
-      JSON.stringify(
-        {
-          date: Date.now(),
-          method: req.params.method,
-          body,
+    try {
+      const data = await validateWebhook(
+        req.headers,
+        req.body,
+        process.env.PAYPAY_WEBHOOK_ID || ''
+      );
+      const {
+        event_type,
+        resource: {
+          id,
+          amount: { total, currency },
+          transaction_fee: { value },
+          custom,
+          create_time,
         },
-        null,
-        2
-      )
-    );
+      } = data;
 
-    // Validate IPN message with PayPal
-    /*try {
-      const isValidated = await PayPalService.validate(body);
-      if (!isValidated) {
-        console.error('Error validating IPN message.');
+      if (event_type !== 'PAYMENT.SALE.COMPLETED' || total !== '9.99' || currency !== 'EUR') {
+        res.sendStatus(200);
         return;
       }
 
-      // IPN Message is validated!
-      if (TRITON_REGEX.test(body.custom)) sheetsController.handleTritonPurchase(body);
+      const [actionType, userId, transactionId, resourceId] = custom.split('|');
+      if (actionType !== 'resource_purchase' && resourceId !== '30331') {
+        res.sendStatus(200);
+        return;
+      }
+
+      const spigotUser = await getUserById(userId);
+
+      sheetsController.handleTritonPurchase({
+        date: new Date(create_time),
+        spigotUser: spigotUser.username,
+        total: parseFloat(total),
+        fee: parseFloat(value),
+        currency,
+        transactionId: id,
+        marketplace: 'Spigot',
+      });
+
+      res.sendStatus(200);
     } catch (e) {
-      console.error(e);
-    }*/
+      console.error('Error while handling PayPal webhook', e);
+      res.sendStatus(500);
+    }
   }
 }
 

@@ -3,5 +3,7 @@ import IPNController from './projects/paypal-ipn/IPNController.ctrl';
 
 export default (app) => {
   app.get('/gdrawings/:id.png', gdrawings);
-  app.post('/paypal-webhook/:method', IPNController.index);
+
+  const ipnController = new IPNController();
+  app.post('/paypal-webhook/', ipnController.handleWebhook);
 };
