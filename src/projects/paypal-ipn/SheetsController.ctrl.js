@@ -92,7 +92,9 @@ class SheetsController {
             resource: {
               values: [
                 [
-                  `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`,
+                  `${this.pad(date.getDate())}/${this.pad(
+                    date.getMonth() + 1
+                  )}/${date.getFullYear()}`,
                   ``,
                   spigotUser,
                   total,
