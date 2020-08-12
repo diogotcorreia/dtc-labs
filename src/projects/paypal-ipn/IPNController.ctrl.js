@@ -17,7 +17,12 @@ class IPNController {
   async handleWebhook(req, res) {
     // Send 200 status back to PayPal
     try {
-      const data = await validateWebhook(req.body);
+      const valid = await validateWebhook(JSON.stringify(req.body));
+      if (!valid) {
+        res.sendStatus(400);
+        return;
+      }
+
       const {
         event_type,
         resource: {
@@ -27,7 +32,7 @@ class IPNController {
           custom,
           create_time,
         },
-      } = data;
+      } = req.body;
 
       if (event_type !== 'PAYMENT.SALE.COMPLETED' || total !== '9.99' || currency !== 'EUR') {
         res.sendStatus(200);
