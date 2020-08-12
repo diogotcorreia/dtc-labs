@@ -53,7 +53,7 @@ class IPNController {
         userId,
         spigotUser.username,
         (spigotUser.identities || {}).discord || null,
-        new Date(create_time).getTime()
+        new Date(create_time)
       );
 
       sheetsController.handleTritonPurchase({
