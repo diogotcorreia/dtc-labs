@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "googleapis": "39",
     "knex": "^0.21.4",
+    "mysql": "^2.18.1",
     "paypal-rest-sdk": "^1.8.1",
     "request": "^2.88.0"
   },
