@@ -1,18 +1,23 @@
 import SheetsController from './SheetsController.ctrl';
 import { validate as validateWebhook } from './paypal.service';
 import { getUserById } from './spigot.service';
+import paypal from 'paypal-rest-sdk';
 
 const sheetsController = new SheetsController();
 
 class IPNController {
+  constructor() {
+    paypal.configure({
+      mode: process.env.PAYPAL_MODE || 'sandbox', //sandbox or live
+      client_id: process.env.PAYPAL_CLIENT_ID || '',
+      client_secret: process.env.PAYPAL_CLIENT_SECRET || '',
+    });
+  }
+
   async handleWebhook(req, res) {
     // Send 200 status back to PayPal
     try {
-      const data = await validateWebhook(
-        req.headers,
-        req.body,
-        process.env.PAYPAL_WEBHOOK_ID || ''
-      );
+      const data = await validateWebhook(req.body);
       const {
         event_type,
         resource: {
