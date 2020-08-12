@@ -11,7 +11,7 @@ class IPNController {
       const data = await validateWebhook(
         req.headers,
         req.body,
-        process.env.PAYPAY_WEBHOOK_ID || ''
+        process.env.PAYPAL_WEBHOOK_ID || ''
       );
       const {
         event_type,
