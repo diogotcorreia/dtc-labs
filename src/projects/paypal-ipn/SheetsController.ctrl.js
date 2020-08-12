@@ -68,6 +68,10 @@ class SheetsController {
     });
   }
 
+  pad(number) {
+    return ('0' + number).slice(-2);
+  }
+
   handleTritonPurchase({ date, spigotUser, total, fee, currency, transactionId, marketplace }) {
     const sheets = google.sheets({ version: 'v4', auth: this.auth });
     const spreadsheetId = process.env.PAYPAL_SPREADSHEET_ID;
@@ -88,7 +92,7 @@ class SheetsController {
             resource: {
               values: [
                 [
-                  `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+                  `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`,
                   ``,
                   spigotUser,
                   total,
