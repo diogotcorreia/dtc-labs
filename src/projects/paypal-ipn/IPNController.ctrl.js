@@ -1,9 +1,8 @@
-import SheetsController from './SheetsController.ctrl';
-import { validate as validateWebhook } from './paypal.service';
-import { getUserById } from './spigot.service';
 import paypal from 'paypal-rest-sdk';
-
-const sheetsController = new SheetsController();
+import DatabaseController from './DatabaseController.ctrl';
+import { validate as validateWebhook } from './paypal.service';
+import SheetsController from './SheetsController.ctrl';
+import { getUserById } from './spigot.service';
 
 class IPNController {
   constructor() {
@@ -12,6 +11,8 @@ class IPNController {
       client_id: process.env.PAYPAL_CLIENT_ID || '',
       client_secret: process.env.PAYPAL_CLIENT_SECRET || '',
     });
+    this.sheetsController = new SheetsController();
+    this.databaseController = new DatabaseController();
   }
 
   async handleWebhook(req, res) {
@@ -47,7 +48,14 @@ class IPNController {
 
       const spigotUser = await getUserById(userId);
 
-      sheetsController.handleTritonPurchase({
+      await this.databaseController.addPurchaseToDatabase(
+        userId,
+        spigotUser.username,
+        (spigotUser.identities || {}).discord || null,
+        new Date(create_time).getTime()
+      );
+
+      this.sheetsController.handleTritonPurchase({
         date: new Date(create_time),
         spigotUser: spigotUser.username,
         total: parseFloat(total),

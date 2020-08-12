@@ -108,7 +108,7 @@ class SheetsController {
           },
           (err) => {
             if (err) return console.log('Error while appending rows: ' + err);
-            console.log('Added new purchase entry to Triton spreadsheet');
+            console.log('Added new purchase entry to Triton spreadsheet: ', spigotUser);
           }
         );
       }
