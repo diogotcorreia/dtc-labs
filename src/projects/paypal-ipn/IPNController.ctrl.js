@@ -4,6 +4,9 @@ import { validate as validateWebhook } from './paypal.service';
 import SheetsController from './SheetsController.ctrl';
 import { getUserById } from './spigot.service';
 
+const sheetsController = new SheetsController();
+const databaseController = new DatabaseController();
+
 class IPNController {
   constructor() {
     paypal.configure({
@@ -11,11 +14,9 @@ class IPNController {
       client_id: process.env.PAYPAL_CLIENT_ID || '',
       client_secret: process.env.PAYPAL_CLIENT_SECRET || '',
     });
-    this.sheetsController = new SheetsController();
-    this.databaseController = new DatabaseController();
   }
 
-  handleWebhook = async (req, res) => {
+  async handleWebhook(req, res) {
     // Send 200 status back to PayPal
     try {
       const valid = await validateWebhook(JSON.stringify(req.body));
@@ -48,14 +49,14 @@ class IPNController {
 
       const spigotUser = await getUserById(userId);
 
-      await this.databaseController.addPurchaseToDatabase(
+      await databaseController.addPurchaseToDatabase(
         userId,
         spigotUser.username,
         (spigotUser.identities || {}).discord || null,
         new Date(create_time).getTime()
       );
 
-      this.sheetsController.handleTritonPurchase({
+      sheetsController.handleTritonPurchase({
         date: new Date(create_time),
         spigotUser: spigotUser.username,
         total: parseFloat(total),
@@ -70,7 +71,7 @@ class IPNController {
       console.error('Error while handling PayPal webhook', e);
       res.sendStatus(500);
     }
-  };
+  }
 }
 
 export default IPNController;
