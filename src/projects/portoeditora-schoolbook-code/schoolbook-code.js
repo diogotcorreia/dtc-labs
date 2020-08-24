@@ -4,8 +4,7 @@ const handleRequest = async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Content-Type', 'application/json');
   try {
-    console.log(req.params[0]);
-    const { data } = await axios.get(req.params[0]);
+    const { data } = await axios.get(`https://${req.params[0]}`);
     res.end(
       JSON.stringify({
         code:
@@ -16,7 +15,6 @@ const handleRequest = async (req, res) => {
     );
   } catch (e) {
     res.end(JSON.stringify({ code: '' }));
-    console.error(e);
   }
 };
 
