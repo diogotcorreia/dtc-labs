@@ -25,8 +25,14 @@ class IPNController {
         return;
       }
 
+      const { event_type } = req.body;
+
+      if (event_type !== 'PAYMENT.SALE.COMPLETED') {
+        res.sendStatus(200);
+        return;
+      }
+
       const {
-        event_type,
         resource: {
           id,
           amount: { total, currency },
@@ -36,7 +42,7 @@ class IPNController {
         },
       } = req.body;
 
-      if (event_type !== 'PAYMENT.SALE.COMPLETED' || total !== '9.99' || currency !== 'EUR') {
+      if (total !== '9.99' || currency !== 'EUR') {
         res.sendStatus(200);
         return;
       }
