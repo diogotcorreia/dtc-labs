@@ -1,2 +1,19 @@
 # dtc-labs
 
+## Available environment variables
+
+```env
+PORT=5000
+
+TRITON_DB_HOST=localhost
+TRITON_DB_PORT=3306
+TRITON_DB_USERNAME=root
+TRITON_DB_PASSWORD=
+TRITON_DB_NAME=triton
+
+PAYPAL_MODE=
+PAYPAL_CLIENT_ID=
+PAYPAL_CLIENT_SECRET=
+
+PAYPAL_SPREADSHEET_ID=
+```
