@@ -1,8 +1,11 @@
+import istcalrewrite from './projects/istcalrewrite/istcalrewrite';
 import schoolbookCode from './projects/portoeditora-schoolbook-code/schoolbook-code';
 import gdrawings from './projects/gdrawings/gdrawings';
 import IPNController from './projects/paypal-ipn/IPNController.ctrl';
 
 export default (app) => {
+  app.get(/\/istcalrewrite\/(.+)/, istcalrewrite);
+
   app.get('/gdrawings/:id.png', gdrawings);
 
   const ipnController = new IPNController();
