@@ -5,11 +5,7 @@
 ```env
 PORT=5000
 
-TRITON_DB_HOST=localhost
-TRITON_DB_PORT=3306
-TRITON_DB_USERNAME=root
-TRITON_DB_PASSWORD=
-TRITON_DB_NAME=triton
+TRITON_DB_URL=postgresql:///triton?host=/run/postgresql
 
 PAYPAL_MODE=sandbox # 'sandbox' or 'live'
 PAYPAL_CLIENT_ID=
