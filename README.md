@@ -12,6 +12,8 @@ PAYPAL_CLIENT_ID=
 PAYPAL_CLIENT_SECRET=
 
 PAYPAL_SPREADSHEET_ID=
+GSHEETS_TOKEN_PATH=token.json
+GSHEETS_CREDENTIALS_PATH=credentials.json
 ```
 
 For [Google Sheets' API](https://console.developers.google.com/apis/credentials), a `credentials.json` file must be placed at the root of the project.

@@ -3,12 +3,13 @@ import readline from 'readline';
 import { google } from 'googleapis';
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const TOKEN_PATH = 'token.json';
+const CREDENTIALS_PATH = process.env.GSHEETS_CREDENTIALS_PATH || 'credentials.json';
+const TOKEN_PATH = process.env.GSHEETS_TOKEN_PATH || 'token.json';
 
 class SheetsController {
   constructor() {
     this.updateAuth = this.updateAuth.bind(this);
-    fs.readFile('credentials.json', (err, content) => {
+    fs.readFile(CREDENTIALS_PATH, (err, content) => {
       if (err) return console.log('Error loading client secret file:', err);
       // Authorize a client with credentials, then call the Google Sheets API.
       this.authorize(JSON.parse(content), this.updateAuth);
