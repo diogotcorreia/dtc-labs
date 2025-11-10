@@ -9,4 +9,5 @@ export default (app) => {
 
   const ipnController = new IPNController();
   app.post('/paypal-webhook/', ipnController.handleWebhook);
+  app.post('/paypal-ipn/', ipnController.handleWebhook);
 };
