@@ -1,6 +1,6 @@
-import istcalrewrite from './projects/istcalrewrite/istcalrewrite';
-import gdrawings from './projects/gdrawings/gdrawings';
-import IPNController from './projects/paypal-ipn/IPNController.ctrl';
+import istcalrewrite from './projects/istcalrewrite/istcalrewrite.js';
+import gdrawings from './projects/gdrawings/gdrawings.js';
+import IPNController from './projects/paypal-ipn/IPNController.ctrl.js';
 
 export default (app) => {
   app.get(/\/istcalrewrite\/(.+)/, istcalrewrite);

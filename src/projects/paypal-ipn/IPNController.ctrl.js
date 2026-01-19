@@ -1,8 +1,8 @@
 import paypal from 'paypal-rest-sdk';
-import DatabaseController from './DatabaseController.ctrl';
-import { validate as validateWebhook } from './paypal.service';
-import SheetsController from './SheetsController.ctrl';
-import { getUserById } from './spigot.service';
+import DatabaseController from './DatabaseController.ctrl.js';
+import { validate as validateWebhook } from './paypal.service.js';
+import SheetsController from './SheetsController.ctrl.js';
+import { getUserById } from './spigot.service.js';
 
 const sheetsController = new SheetsController();
 const databaseController = new DatabaseController();
