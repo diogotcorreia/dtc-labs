@@ -10,27 +10,23 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "format": "prettier --write src/**/*.{js,jsx}"
+    "prepare": "husky",
+    "format": "prettier --write src/**/*.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "express": "^4.17.1",
-    "googleapis": "39",
-    "knex": "^0.21.4",
+    "axios": "^1.13.2",
+    "body-parser": "^2.2.2",
+    "express": "^5.2.1",
+    "googleapis": "^170.1.0",
+    "knex": "^3.1.0",
     "paypal-rest-sdk": "^1.8.1",
-    "pg": "^8.13.1",
+    "pg": "^8.17.1",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "body-parser": "^1.19.0",
-    "husky": "^3.1.0",
-    "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format"
-    }
+    "husky": "^9.1.7",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.8.0"
   },
   "targets": {
     "node": "22"

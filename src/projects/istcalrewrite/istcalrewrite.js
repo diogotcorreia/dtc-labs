@@ -14,7 +14,7 @@ const handleRequest = (req, res) => {
     },
     encoding: null,
   };
-  request(options, function(error, response, body) {
+  request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res
         .set('Content-Type', 'text/calendar')
