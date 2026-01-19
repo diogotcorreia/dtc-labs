@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "git@git.diogotc.com:dtc/dtc-labs.git",
   "author": "Diogo Correia <me@diogotc.com>",
-  "license": "NONE",
+  "license": "GPL-3.0-or-later",
   "private": true,
   "scripts": {
     "start": "node dist/index.js",
