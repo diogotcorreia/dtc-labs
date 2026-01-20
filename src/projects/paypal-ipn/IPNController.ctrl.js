@@ -19,6 +19,11 @@ class IPNController {
   async handleWebhook(req, res) {
     // Send 200 status back to PayPal
     try {
+      if (!req.body?.id) {
+        // Not a webhook
+        res.sendStatus(200);
+        return;
+      }
       const valid = await validateWebhook(JSON.stringify(req.body));
       if (!valid) {
         res.sendStatus(400);
