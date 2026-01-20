@@ -1,9 +1,7 @@
-import axios from 'axios';
-
 export const getUserById = async (id) => {
-  const res = await axios.get(
+  const res = await fetch(
     `https://api.spigotmc.org/simple/0.2/index.php?action=getAuthor&id=${encodeURIComponent(id)}`
   );
-  if (res.status !== 200) throw new Error('spigot api status not 200');
-  return res.data;
+  if (!res.ok) throw new Error('spigot api status not 2xx');
+  return await res.json();
 };
