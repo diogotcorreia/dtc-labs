@@ -82,7 +82,7 @@ class SheetsController {
         range: 'Triton Purchases!H7:H',
       },
       (err, res) => {
-        if (err) return console.log('The API returned an error: ' + err);
+        if (err) return console.error('The API returned an error:', err);
         const rows = res.data.values;
         if (!rows.every((v) => v[0] !== transactionId)) return;
         sheets.spreadsheets.values.append(
@@ -110,8 +110,8 @@ class SheetsController {
             },
           },
           (err) => {
-            if (err) return console.log('Error while appending rows: ' + err);
-            console.log('Added new purchase entry to Triton spreadsheet: ', spigotUser);
+            if (err) return console.error('Error while appending rows:', err);
+            console.log('Added new purchase entry to Triton spreadsheet:', spigotUser);
           }
         );
       }
